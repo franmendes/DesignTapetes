@@ -81,6 +81,10 @@ public class TabelaCliente extends AbstractTableModel{
     public Cliente getContato(int linha){
         return lista.get(linha);
     }
+
+    void removeCliente(Cliente cliente) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }    
     
