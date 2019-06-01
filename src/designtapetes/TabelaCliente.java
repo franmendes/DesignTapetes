@@ -34,19 +34,16 @@ public class TabelaCliente extends AbstractTableModel{
 
     @Override
     public boolean isCellEditable(int row, int column) {
-        return false;
-        //if(column==0)
-        //    return false;
-        //return true;
+        return column != 0;
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Cliente customer = lista.get(rowIndex);
         switch (columnIndex) {
-            case 0: return customer.getNome();//if column 1 (name)
-            case 1: return customer.getSobrenome();//if column 2 (birthday)
-            case 2: return customer.getCpf();
+            case 0: return customer.getCpf();
+            case 1: return customer.getNome();//if column 1 (name)
+            case 2: return customer.getSobrenome();//if column 2 (birthday)
             default : return null;
         }
     }
@@ -80,12 +77,7 @@ public class TabelaCliente extends AbstractTableModel{
 
     public Cliente getContato(int linha){
         return lista.get(linha);
-    }
-
-    void removeCliente(Cliente cliente) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    }    
 }    
     
     

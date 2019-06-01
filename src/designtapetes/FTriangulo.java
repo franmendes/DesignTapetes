@@ -2,13 +2,13 @@ package designtapetes;
 
 /**
  *
- * @author francielle.ti
+ * @author francielle.ti, eweber
  */
-public class Triangulo extends Forma {
+public class FTriangulo extends Forma {
     private double altura;
     private double base;
 
-    public Triangulo(double altura, double base, double area) {
+    public FTriangulo(double altura, double base, double area) {
         super(area);
         this.altura = altura;
         this.base = base;
@@ -30,6 +30,12 @@ public class Triangulo extends Forma {
         this.base = base;
     }
     
-    
-    
+    public double calcArea(double altura, double base) {
+        return (altura * base) / 3;
+    }
+
+    @Override
+    public double calcDimensions(double area){
+        return Math.sqrt(area * 3);
+    }
 }

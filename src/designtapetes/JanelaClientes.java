@@ -209,7 +209,7 @@ public class JanelaClientes extends javax.swing.JFrame {
         }
         for(Cliente cliente:listaExcluir){
             listaDeClientes.remove(cliente);
-            modelo.removeCliente(cliente);
+            modelo.removeContato(cliente);
         }
     }//GEN-LAST:event_excluirMouseClicked
 

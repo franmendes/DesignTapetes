@@ -2,32 +2,32 @@ package designtapetes;
 
 /**
  *
- * @author francielle.ti
+ * @author francielle.ti, eweber
  */
 public class Tapete {
-    private String tecido;
-    private String forma;
+    private Material material;
+    private Forma forma;
     private double preco;
 
-    public Tapete(String tecido, String forma, double preco) {
-        this.tecido = tecido;
+    public Tapete(Material material, Forma forma, double preco) {
+        this.material = material;
         this.forma = forma;
         this.preco = preco;
     }
 
-    public String getTecido() {
-        return tecido;
+    public Material getMaterial() {
+        return material;
     }
 
-    public void setTecido(String tecido) {
-        this.tecido = tecido;
+    public void setMaterial(Material material) {
+        this.material = material;
     }
 
-    public String getForma() {
+    public Forma getForma() {
         return forma;
     }
 
-    public void setForma(String forma) {
+    public void setForma(Forma forma) {
         this.forma = forma;
     }
 
@@ -39,5 +39,8 @@ public class Tapete {
         this.preco = preco;
     }
     
+    public double calcPreco(){
+        return this.forma.getArea() * this.material.getPrecoPorArea();
+    }
     
 }
