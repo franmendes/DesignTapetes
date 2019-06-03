@@ -9,14 +9,10 @@ import javax.swing.table.AbstractTableModel;
  */
 public class TabelaCliente extends AbstractTableModel{
 
-    private String[] colunas=new String[]{"Nome", "Sobrenome", "CPF"};
+    private final String[] colunas = new String[]{"CPF", "Nome", "Sobrenome"};
 
     private List<Cliente> lista = new ArrayList();
-
-
     
-
-
     @Override
     public int getRowCount() {
         return lista.size();
@@ -78,7 +74,4 @@ public class TabelaCliente extends AbstractTableModel{
     public Cliente getContato(int linha){
         return lista.get(linha);
     }    
-}    
-    
-    
-
+}

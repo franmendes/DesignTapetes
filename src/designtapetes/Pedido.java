@@ -7,17 +7,17 @@ package designtapetes;
 
 /**
  *
- * @author francielle.ti
+ * @author francielle.ti, eweber
  */
 public class Pedido {
     private String data;
-    private String itens[];
-    private String cliente;
+    private Tapete[] tapetes;
+    private Cliente cliente;
     private double total;
 
-    public Pedido(String data, String[] itens, String cliente, int total) {
+    public Pedido(String data, Tapete[] tapetes, Cliente cliente, int total) {
         this.data = data;
-        this.itens = itens;
+        this.tapetes = tapetes;
         this.cliente = cliente;
         this.total = total;
     }
@@ -30,19 +30,19 @@ public class Pedido {
         this.data = data;
     }
 
-    public String[] getItens() {
-        return itens;
+    public Tapete[] getTapetes() {
+        return tapetes;
     }
 
-    public void setItens(String[] itens) {
-        this.itens = itens;
+    public void setTapetes(Tapete[] tapetes) {
+        this.tapetes = tapetes;
     }
 
-    public String getCliente() {
+    public Cliente getCliente() {
         return cliente;
     }
 
-    public void setCliente(String cliente) {
+    public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
 
@@ -54,7 +54,10 @@ public class Pedido {
         this.total = total;
     }
     
-    
-    
-    
+    public void addTapete(Tapete tapete){
+        Tapete[] aux = this.tapetes;
+        this.tapetes = new Tapete[(this.tapetes.length) + 1];
+        System.arraycopy(aux, 0, this.tapetes, 0, aux.length);
+        this.tapetes[aux.length] = tapete;
+    }    
 }
