@@ -1,5 +1,7 @@
 package designtapetes;
 
+import java.util.Arrays;
+
 /**
  *
  * @author eweber
@@ -129,6 +131,11 @@ public class DesignTapetes extends javax.swing.JFrame {
         lblClienteSobrenome.setText("Sobrenome: ");
 
         btnClienteCadastrar.setText("Cadastrar");
+        btnClienteCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClienteCadastrarActionPerformed(evt);
+            }
+        });
 
         btnClienteEditar.setText("Editar");
 
@@ -467,6 +474,8 @@ public class DesignTapetes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
+    public Cliente[] clientes;
+    
     public Material comum = new Material(2.0, "Comum");
     public Material luxo = new Material(3.0, "Luxo");
     public Material premium = new Material(4.0, "Premium");
@@ -529,6 +538,41 @@ public class DesignTapetes extends javax.swing.JFrame {
         double novoPreco = Double.parseDouble(txtMaterialPreco.getText());
         selectedMaterial.setPrecoPorArea(novoPreco);
     }//GEN-LAST:event_btnMaterialPrecoAtualizarActionPerformed
+
+    private void btnClienteCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteCadastrarActionPerformed
+        Cliente novoCliente = new Cliente(txtClienteNome.getText(), txtClienteSobrenome.getText(), txtClienteCPF.getText());
+        Cliente[] aux = null;
+        if (clientes != null){
+            aux = clientes.clone();
+            clientes = new Cliente[clientes.length + 1];
+        } else {
+            clientes = new Cliente[1];
+        }        
+        if (aux != null ){
+            System.arraycopy(aux, 0, clientes, 0, aux.length);
+        }
+        clientes[clientes.length - 1] = new Cliente (novoCliente.getNome(), novoCliente.getSobrenome(), novoCliente.getCpf());
+        
+        String[] rows = {"CPF", "Nome", "Sobrenome"};
+        javax.swing.table.DefaultTableModel tableClientes = new javax.swing.table.DefaultTableModel(rows, 0);
+        for (Cliente cliente : clientes) {
+            Object[] clientesAux = {cliente.getCpf(), cliente.getNome(), cliente.getSobrenome()};
+            tableClientes.addRow(clientesAux);
+        }
+        tblClienteLista = new javax.swing.JTable(tableClientes);
+        
+        String[] cpfs = new String[clientes.length + 1];
+        cpfs[0] = "<Selecione o Cliente>";
+        for (int j = 0; j < clientes.length; j++){            
+            cpfs[(j + 1)] = clientes[j].getCpf();
+        }
+        cboxPedidoCPF.setModel(new javax.swing.DefaultComboBoxModel(cpfs));
+        
+        txtClienteNome.setText("");
+        txtClienteSobrenome.setText("");
+        txtClienteCPF.setText("");
+        
+    }//GEN-LAST:event_btnClienteCadastrarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
