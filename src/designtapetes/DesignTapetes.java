@@ -66,6 +66,7 @@ public class DesignTapetes extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(400, 150));
         setLocationByPlatform(true);
+        setName("frameDesignTapetes"); // NOI18N
 
         lblTitle.setFont(new java.awt.Font("Mirum Sans", 0, 24)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -238,11 +239,11 @@ public class DesignTapetes extends javax.swing.JFrame {
 
         lblPedidoCPF.setText("CPF Cliente: ");
 
-        cboxPedidoCPF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboxPedidoCPF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione o Cliente>" }));
 
         lblPedidoForma.setText("Forma Tapete: ");
 
-        cboxPedidoForma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Circulo", "Triangulo", "Retangulo" }));
+        cboxPedidoForma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione a Forma>", "Circulo", "Triangulo", "Retangulo" }));
 
         lblPedidoDim1.setText("Dimensão 1: ");
 
@@ -252,7 +253,7 @@ public class DesignTapetes extends javax.swing.JFrame {
 
         lblPedidoMaterial.setText("Material Tapete: ");
 
-        cboxPedidoMaterial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comum", "Luxo", "Premium" }));
+        cboxPedidoMaterial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione o Material>", "Comum", "Luxo", "Premium" }));
 
         btnPedidoAdicionar.setText("Adicionar Item");
 
@@ -393,7 +394,12 @@ public class DesignTapetes extends javax.swing.JFrame {
             }
         });
 
-        cboxMaterialTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comum", "Luxo", "Premium" }));
+        cboxMaterialTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione o Material>", "Comum", "Luxo", "Premium" }));
+        cboxMaterialTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxMaterialTipoActionPerformed(evt);
+            }
+        });
 
         lblMaterialTipo.setText("Material: ");
 
@@ -405,6 +411,11 @@ public class DesignTapetes extends javax.swing.JFrame {
         btnMaterialPrecoAtualizar.setAlignmentX(0.5F);
         btnMaterialPrecoAtualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnMaterialPrecoAtualizar.setMargin(new java.awt.Insets(10, 15, 10, 15));
+        btnMaterialPrecoAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMaterialPrecoAtualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlPrecosLayout = new javax.swing.GroupLayout(pnlPrecos);
         pnlPrecos.setLayout(pnlPrecosLayout);
@@ -459,6 +470,7 @@ public class DesignTapetes extends javax.swing.JFrame {
     public Material comum = new Material(2.0, "Comum");
     public Material luxo = new Material(3.0, "Luxo");
     public Material premium = new Material(4.0, "Premium");
+    public Material selectedMaterial;
     
     public void switchPanels(javax.swing.JPanel panel){
         pnlContent.removeAll();
@@ -490,6 +502,33 @@ public class DesignTapetes extends javax.swing.JFrame {
     private void btnMenuPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrecoActionPerformed
         switchPanels(pnlPrecos);
     }//GEN-LAST:event_btnMenuPrecoActionPerformed
+
+    private void cboxMaterialTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxMaterialTipoActionPerformed
+        String material = (String)cboxMaterialTipo.getSelectedItem();
+        switch(material){
+            case "Comum" :
+                selectedMaterial = comum;
+                break;
+            case "Luxo" :
+                selectedMaterial = luxo;
+                break;
+            case "Premium" :
+                selectedMaterial = premium;
+                break;
+            default :
+                selectedMaterial = null;
+        }
+        if (selectedMaterial != null){
+            txtMaterialPreco.setText(Double.toString(selectedMaterial.getPrecoPorArea()));
+        } else {
+            txtMaterialPreco.setText("");
+        }
+    }//GEN-LAST:event_cboxMaterialTipoActionPerformed
+
+    private void btnMaterialPrecoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaterialPrecoAtualizarActionPerformed
+        double novoPreco = Double.parseDouble(txtMaterialPreco.getText());
+        selectedMaterial.setPrecoPorArea(novoPreco);
+    }//GEN-LAST:event_btnMaterialPrecoAtualizarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

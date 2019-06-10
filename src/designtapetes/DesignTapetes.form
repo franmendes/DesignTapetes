@@ -7,6 +7,7 @@
       <Point value="[400, 150]"/>
     </Property>
     <Property name="locationByPlatform" type="boolean" value="true"/>
+    <Property name="name" type="java.lang.String" value="frameDesignTapetes" noResource="true"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -421,13 +422,8 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="cboxPedidoCPF">
               <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="4">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
-                  </StringArray>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;&lt;Selecione o Cliente&gt;&quot; })" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -442,7 +438,7 @@
             <Component class="javax.swing.JComboBox" name="cboxPedidoForma">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Circulo&quot;, &quot;Triangulo&quot;, &quot;Retangulo&quot; })" type="code"/>
+                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;&lt;Selecione a Forma&gt;&quot;, &quot;Circulo&quot;, &quot;Triangulo&quot;, &quot;Retangulo&quot; })" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -478,7 +474,7 @@
             <Component class="javax.swing.JComboBox" name="cboxPedidoMaterial">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Comum&quot;, &quot;Luxo&quot;, &quot;Premium&quot; })" type="code"/>
+                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;&lt;Selecione o Material&gt;&quot;, &quot;Comum&quot;, &quot;Luxo&quot;, &quot;Premium&quot; })" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -638,9 +634,12 @@
             <Component class="javax.swing.JComboBox" name="cboxMaterialTipo">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;Comum&quot;, &quot;Luxo&quot;, &quot;Premium&quot; })" type="code"/>
+                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;&lt;Selecione o Material&gt;&quot;, &quot;Comum&quot;, &quot;Luxo&quot;, &quot;Premium&quot; })" type="code"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboxMaterialTipoActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -671,6 +670,9 @@
                   <Insets value="[10, 15, 10, 15]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMaterialPrecoAtualizarActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
