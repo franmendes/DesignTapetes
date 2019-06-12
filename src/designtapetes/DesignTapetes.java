@@ -1,5 +1,6 @@
 package designtapetes;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -138,41 +139,23 @@ public class DesignTapetes extends javax.swing.JFrame {
         });
 
         btnClienteEditar.setText("Editar");
+        btnClienteEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClienteEditarActionPerformed(evt);
+            }
+        });
 
         btnClienteExcluir.setText("Excluir");
-
-        tblClienteLista.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "CPF", "Nome", "Sobrenome"
+        btnClienteExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClienteExcluirActionPerformed(evt);
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
+        });
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        tblClienteLista.setModel(clienteModel);
+        tblClienteLista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClienteListaMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblClienteLista);
@@ -268,31 +251,7 @@ public class DesignTapetes extends javax.swing.JFrame {
 
         btnPedidoExcluir.setText("Remover Item");
 
-        tblPedidoLista.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Forma", "Material", "Tamanho", "Preço"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        tblPedidoLista.setModel(pedidoModel);
         jScrollPane2.setViewportView(tblPedidoLista);
 
         lblPedidoTotal.setFont(new java.awt.Font("Mirum Sans", 0, 24)); // NOI18N
@@ -474,12 +433,20 @@ public class DesignTapetes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
+    public Pedido[] pedidos;
     public Cliente[] clientes;
+    public Tapete[] tapetes;
     
     public Material comum = new Material(2.0, "Comum");
     public Material luxo = new Material(3.0, "Luxo");
     public Material premium = new Material(4.0, "Premium");
     public Material selectedMaterial;
+    
+    public Forma selectedForma;
+    
+    TabelaCliente clienteModel = new TabelaCliente();
+    TabelaPedido pedidoModel = new TabelaPedido();
+    public int selectedRow = -1;
     
     public void switchPanels(javax.swing.JPanel panel){
         pnlContent.removeAll();
@@ -553,13 +520,9 @@ public class DesignTapetes extends javax.swing.JFrame {
         }
         clientes[clientes.length - 1] = new Cliente (novoCliente.getNome(), novoCliente.getSobrenome(), novoCliente.getCpf());
         
-        String[] rows = {"CPF", "Nome", "Sobrenome"};
-        javax.swing.table.DefaultTableModel tableClientes = new javax.swing.table.DefaultTableModel(rows, 0);
-        for (Cliente cliente : clientes) {
-            Object[] clientesAux = {cliente.getCpf(), cliente.getNome(), cliente.getSobrenome()};
-            tableClientes.addRow(clientesAux);
-        }
-        tblClienteLista = new javax.swing.JTable(tableClientes);
+        clienteModel.adicionaContato(novoCliente);
+        
+        tblClienteLista.setModel(clienteModel);
         
         String[] cpfs = new String[clientes.length + 1];
         cpfs[0] = "<Selecione o Cliente>";
@@ -573,6 +536,51 @@ public class DesignTapetes extends javax.swing.JFrame {
         txtClienteCPF.setText("");
         
     }//GEN-LAST:event_btnClienteCadastrarActionPerformed
+
+    private void tblClienteListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClienteListaMouseClicked
+        selectedRow = tblClienteLista.getSelectedRow();
+        txtClienteCPF.setText(clientes[selectedRow].getCpf());
+        txtClienteNome.setText(clientes[selectedRow].getNome());
+        txtClienteSobrenome.setText(clientes[selectedRow].getSobrenome());
+    }//GEN-LAST:event_tblClienteListaMouseClicked
+
+    private void btnClienteEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteEditarActionPerformed
+        clientes[selectedRow].setCpf(txtClienteCPF.getText());
+        clientes[selectedRow].setNome(txtClienteNome.getText());
+        clientes[selectedRow].setSobrenome(txtClienteSobrenome.getText());
+        
+        ArrayList<Cliente> list = new ArrayList(Arrays.asList(clientes));
+        clienteModel.atualizarTabela(list);
+        tblClienteLista.setModel(clienteModel);
+        
+        txtClienteNome.setText("");
+        txtClienteSobrenome.setText("");
+        txtClienteCPF.setText("");
+        selectedRow = -1;
+    }//GEN-LAST:event_btnClienteEditarActionPerformed
+
+    private void btnClienteExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteExcluirActionPerformed
+        if(selectedRow == -1){
+            return;
+        }
+        for(int i = selectedRow; i < (clientes.length - 1); i++){
+            clientes[i].setCpf(clientes[i+1].getCpf());
+            clientes[i].setNome(clientes[i+1].getNome());
+            clientes[i].setSobrenome(clientes[i+1].getSobrenome());
+        }
+        
+        Cliente[] aux = Arrays.copyOf(clientes, clientes.length-1);
+        clientes = aux.clone();
+            
+        ArrayList<Cliente> list = new ArrayList(Arrays.asList(clientes));
+        clienteModel.atualizarTabela(list);
+        tblClienteLista.setModel(clienteModel);
+        
+        txtClienteNome.setText("");
+        txtClienteSobrenome.setText("");
+        txtClienteCPF.setText("");
+        selectedRow = -1;
+    }//GEN-LAST:event_btnClienteExcluirActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

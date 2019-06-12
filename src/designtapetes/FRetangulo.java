@@ -8,10 +8,8 @@ public class FRetangulo extends Forma {
     private double altura;
     private double largura;
 
-    public FRetangulo(double altura, double largura, double area) {
-        super(area);
-        this.altura = altura;
-        this.largura = largura;
+    public FRetangulo() {
+        super("Retângulo");
     }
 
     public double getAltura() {

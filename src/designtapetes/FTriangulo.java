@@ -8,10 +8,8 @@ public class FTriangulo extends Forma {
     private double altura;
     private double base;
 
-    public FTriangulo(double altura, double base, double area) {
-        super(area);
-        this.altura = altura;
-        this.base = base;
+    public FTriangulo() {
+        super("Triângulo");
     }
 
     public double getAltura() {

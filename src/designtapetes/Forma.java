@@ -5,12 +5,21 @@ package designtapetes;
  */
 
 public abstract class Forma {
+    private String formaNome;
     private double area;
 
-    public Forma(double area) {
-        this.area = area;
+    public Forma(String nome) {
+        this.formaNome = nome;
     }
-
+    
+    public String getNome(){
+        return this.formaNome;
+    }
+    
+    public void setNome(String nome){
+        this.formaNome = nome;
+    }
+    
     public double getArea() {
         return area;
     }
