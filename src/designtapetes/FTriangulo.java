@@ -30,11 +30,11 @@ public class FTriangulo extends Forma {
     
     @Override
     public double calcArea(double base, double altura) {
-        return (altura * base) / 3;
+        return (altura * base) / 2;
     }
 
     @Override
     public double calcDimensions(double area){
-        return Math.sqrt(area * 3);
+        return Math.sqrt(area * 2);
     }
 }
