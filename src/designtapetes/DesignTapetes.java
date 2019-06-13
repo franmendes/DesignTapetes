@@ -1,5 +1,8 @@
 package designtapetes;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  *
  * @author eweber
@@ -66,6 +69,7 @@ public class DesignTapetes extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(400, 150));
         setLocationByPlatform(true);
+        setName("frameDesignTapetes"); // NOI18N
 
         lblTitle.setFont(new java.awt.Font("Mirum Sans", 0, 24)); // NOI18N
         lblTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -127,44 +131,31 @@ public class DesignTapetes extends javax.swing.JFrame {
         lblClienteSobrenome.setLabelFor(txtClienteSobrenome);
         lblClienteSobrenome.setText("Sobrenome: ");
 
-        btnClienteCadastrar.setText("Cadastrar");
+        btnClienteCadastrar.setText("Salvar");
+        btnClienteCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClienteCadastrarActionPerformed(evt);
+            }
+        });
 
         btnClienteEditar.setText("Editar");
+        btnClienteEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClienteEditarActionPerformed(evt);
+            }
+        });
 
         btnClienteExcluir.setText("Excluir");
-
-        tblClienteLista.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "CPF", "Nome", "Sobrenome"
+        btnClienteExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClienteExcluirActionPerformed(evt);
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false
-            };
+        });
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        tblClienteLista.setModel(clienteModel);
+        tblClienteLista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblClienteListaMouseClicked(evt);
             }
         });
         jScrollPane1.setViewportView(tblClienteLista);
@@ -238,51 +229,75 @@ public class DesignTapetes extends javax.swing.JFrame {
 
         lblPedidoCPF.setText("CPF Cliente: ");
 
-        cboxPedidoCPF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cboxPedidoCPF.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione o Cliente>" }));
+        cboxPedidoCPF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxPedidoCPFActionPerformed(evt);
+            }
+        });
 
         lblPedidoForma.setText("Forma Tapete: ");
 
-        cboxPedidoForma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Circulo", "Triangulo", "Retangulo" }));
+        cboxPedidoForma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione a Forma>", "Circulo", "Triangulo", "Retangulo" }));
+        cboxPedidoForma.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxPedidoFormaActionPerformed(evt);
+            }
+        });
 
-        lblPedidoDim1.setText("Dimensão 1: ");
+        lblPedidoDim1.setText("Dimensão 1 (m) : ");
 
-        lblPedidoDim2.setText("Dimensão 2: ");
+        txtPedidoDim1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPedidoDim1KeyReleased(evt);
+            }
+        });
 
-        lblPedidoArea.setText("Area: ");
+        lblPedidoDim2.setText("Dimensão 2 (m) : ");
+
+        txtPedidoDim2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPedidoDim2KeyReleased(evt);
+            }
+        });
+
+        lblPedidoArea.setText("Area (m²) :  ");
+
+        txtPedidoArea.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPedidoAreaKeyReleased(evt);
+            }
+        });
 
         lblPedidoMaterial.setText("Material Tapete: ");
 
-        cboxPedidoMaterial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comum", "Luxo", "Premium" }));
+        cboxPedidoMaterial.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione o Material>", "Comum", "Luxo", "Premium" }));
+        cboxPedidoMaterial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxPedidoMaterialActionPerformed(evt);
+            }
+        });
 
         btnPedidoAdicionar.setText("Adicionar Item");
+        btnPedidoAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPedidoAdicionarActionPerformed(evt);
+            }
+        });
 
         btnPedidoEditar.setText("Editar Item");
+        btnPedidoEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPedidoEditarActionPerformed(evt);
+            }
+        });
 
         btnPedidoExcluir.setText("Remover Item");
 
-        tblPedidoLista.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Forma", "Material", "Tamanho", "Preço"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Double.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        tblPedidoLista.setModel(pedidoModel);
+        tblPedidoLista.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPedidoListaMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(tblPedidoLista);
@@ -393,7 +408,12 @@ public class DesignTapetes extends javax.swing.JFrame {
             }
         });
 
-        cboxMaterialTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Comum", "Luxo", "Premium" }));
+        cboxMaterialTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Selecione o Material>", "Comum", "Luxo", "Premium" }));
+        cboxMaterialTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxMaterialTipoActionPerformed(evt);
+            }
+        });
 
         lblMaterialTipo.setText("Material: ");
 
@@ -405,6 +425,11 @@ public class DesignTapetes extends javax.swing.JFrame {
         btnMaterialPrecoAtualizar.setAlignmentX(0.5F);
         btnMaterialPrecoAtualizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnMaterialPrecoAtualizar.setMargin(new java.awt.Insets(10, 15, 10, 15));
+        btnMaterialPrecoAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMaterialPrecoAtualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlPrecosLayout = new javax.swing.GroupLayout(pnlPrecos);
         pnlPrecos.setLayout(pnlPrecosLayout);
@@ -456,15 +481,49 @@ public class DesignTapetes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
+    public Pedido[] pedidos;
+    public Cliente[] clientes;
+    public Tapete[] tapetes;
+    
+    public Cliente clientePedido;
+    public Material materialPedido;
+    public Forma selectedForma;
+    public Pedido pedidoPedido;
+    
     public Material comum = new Material(2.0, "Comum");
     public Material luxo = new Material(3.0, "Luxo");
     public Material premium = new Material(4.0, "Premium");
+    public Material selectedMaterial;
+    
+    TabelaCliente clienteModel = new TabelaCliente();
+    TabelaPedido pedidoModel = new TabelaPedido();
+    
+    public int selectedRow = -1;
     
     public void switchPanels(javax.swing.JPanel panel){
         pnlContent.removeAll();
         pnlContent.add(panel);
         pnlContent.repaint();
         pnlContent.revalidate();
+    }
+    
+    public void calcArea(javax.swing.JTextField txtFieldTyped){
+        if(!(txtFieldTyped.getText()).isEmpty()){
+            double dim1, dim2;
+            if((txtPedidoDim1.getText()).isEmpty()){
+                dim1 = 0.0;
+            } else {
+                dim1 = Double.parseDouble(txtPedidoDim1.getText());
+            }
+            if((txtPedidoDim2.getText()).isEmpty()){
+                dim2 = 0.0;
+            } else {
+                dim2 = Double.parseDouble(txtPedidoDim2.getText());
+            }
+            txtPedidoArea.setText(Double.toString(selectedForma.calcArea(dim1, dim2)));
+        } else {
+            txtPedidoArea.setText("");
+        }
     }
     
     private void btnBackClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackClientesActionPerformed
@@ -490,6 +549,277 @@ public class DesignTapetes extends javax.swing.JFrame {
     private void btnMenuPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuPrecoActionPerformed
         switchPanels(pnlPrecos);
     }//GEN-LAST:event_btnMenuPrecoActionPerformed
+
+    private void cboxMaterialTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxMaterialTipoActionPerformed
+        String material = (String)cboxMaterialTipo.getSelectedItem();
+        switch(material){
+            case "Comum" :
+                selectedMaterial = comum;
+                break;
+            case "Luxo" :
+                selectedMaterial = luxo;
+                break;
+            case "Premium" :
+                selectedMaterial = premium;
+                break;
+            default :
+                selectedMaterial = null;
+        }
+        if (selectedMaterial != null){
+            txtMaterialPreco.setText(Double.toString(selectedMaterial.getPrecoPorArea()));
+        } else {
+            txtMaterialPreco.setText("");
+        }
+    }//GEN-LAST:event_cboxMaterialTipoActionPerformed
+
+    private void btnMaterialPrecoAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaterialPrecoAtualizarActionPerformed
+        double novoPreco = Double.parseDouble(txtMaterialPreco.getText());
+        selectedMaterial.setPrecoPorArea(novoPreco);
+    }//GEN-LAST:event_btnMaterialPrecoAtualizarActionPerformed
+
+    private void btnClienteCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteCadastrarActionPerformed
+        Cliente novoCliente = new Cliente(txtClienteNome.getText(), txtClienteSobrenome.getText(), txtClienteCPF.getText());
+        Cliente[] aux = null;
+        if (clientes != null){
+            aux = clientes.clone();
+            clientes = new Cliente[clientes.length + 1];
+        } else {
+            clientes = new Cliente[1];
+        }        
+        if (aux != null ){
+            System.arraycopy(aux, 0, clientes, 0, aux.length);
+        }
+        clientes[clientes.length - 1] = new Cliente (novoCliente.getNome(), novoCliente.getSobrenome(), novoCliente.getCpf());
+        
+        clienteModel.adicionaContato(novoCliente);
+        
+        tblClienteLista.setModel(clienteModel);
+        
+        String[] cpfs = new String[clientes.length + 1];
+        cpfs[0] = "<Selecione o Cliente>";
+        for (int j = 0; j < clientes.length; j++){            
+            cpfs[(j + 1)] = clientes[j].getCpf();
+        }
+        cboxPedidoCPF.setModel(new javax.swing.DefaultComboBoxModel(cpfs));
+        
+        txtClienteNome.setText("");
+        txtClienteSobrenome.setText("");
+        txtClienteCPF.setText("");
+        
+    }//GEN-LAST:event_btnClienteCadastrarActionPerformed
+
+    private void tblClienteListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClienteListaMouseClicked
+        selectedRow = tblClienteLista.getSelectedRow();
+        txtClienteCPF.setText(clientes[selectedRow].getCpf());
+        txtClienteNome.setText(clientes[selectedRow].getNome());
+        txtClienteSobrenome.setText(clientes[selectedRow].getSobrenome());
+    }//GEN-LAST:event_tblClienteListaMouseClicked
+
+    private void btnClienteEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteEditarActionPerformed
+        clientes[selectedRow].setCpf(txtClienteCPF.getText());
+        clientes[selectedRow].setNome(txtClienteNome.getText());
+        clientes[selectedRow].setSobrenome(txtClienteSobrenome.getText());
+        
+        ArrayList<Cliente> list = new ArrayList(Arrays.asList(clientes));
+        clienteModel.atualizarTabela(list);
+        tblClienteLista.setModel(clienteModel);
+        
+        txtClienteNome.setText("");
+        txtClienteSobrenome.setText("");
+        txtClienteCPF.setText("");
+        selectedRow = -1;
+    }//GEN-LAST:event_btnClienteEditarActionPerformed
+
+    private void btnClienteExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteExcluirActionPerformed
+        if(selectedRow == -1){
+            return;
+        }
+        for(int i = selectedRow; i < (clientes.length - 1); i++){
+            clientes[i].setCpf(clientes[i+1].getCpf());
+            clientes[i].setNome(clientes[i+1].getNome());
+            clientes[i].setSobrenome(clientes[i+1].getSobrenome());
+        }
+        
+        Cliente[] aux = Arrays.copyOf(clientes, clientes.length-1);
+        clientes = aux.clone();
+            
+        ArrayList<Cliente> list = new ArrayList(Arrays.asList(clientes));
+        clienteModel.atualizarTabela(list);
+        tblClienteLista.setModel(clienteModel);
+        
+        txtClienteNome.setText("");
+        txtClienteSobrenome.setText("");
+        txtClienteCPF.setText("");
+        selectedRow = -1;
+    }//GEN-LAST:event_btnClienteExcluirActionPerformed
+
+    private void cboxPedidoFormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxPedidoFormaActionPerformed
+        String forma = (String)cboxPedidoForma.getSelectedItem();
+        switch(forma){
+            case "Circulo" :
+                selectedForma = new FCirculo();
+                lblPedidoDim1.setText("Raio (m) :");
+                txtPedidoDim2.setText("0.0");
+                break;
+            case "Triangulo" :
+                selectedForma = new FTriangulo();
+                lblPedidoDim1.setText("Base (m) :");
+                lblPedidoDim2.setText("Altura (m) :");
+                break;
+            case "Retangulo" :
+                selectedForma = new FRetangulo();
+                lblPedidoDim1.setText("Largura (m) :");
+                lblPedidoDim2.setText("Altura (m) :");
+                break;
+            default :
+                selectedForma = null;
+                lblPedidoDim1.setText("Dimensão 1 (m) :");
+                lblPedidoDim2.setText("Dimensão 2 (m) :");
+        }
+        txtPedidoDim1.setText("");
+        txtPedidoDim2.setText("");
+        txtPedidoArea.setText("");        
+    }//GEN-LAST:event_cboxPedidoFormaActionPerformed
+
+    private void txtPedidoDim1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPedidoDim1KeyReleased
+        calcArea(txtPedidoDim1);
+    }//GEN-LAST:event_txtPedidoDim1KeyReleased
+
+    private void txtPedidoDim2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPedidoDim2KeyReleased
+        calcArea(txtPedidoDim2);
+    }//GEN-LAST:event_txtPedidoDim2KeyReleased
+
+    private void txtPedidoAreaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPedidoAreaKeyReleased
+        double area, dim;
+        if (!txtPedidoArea.getText().isEmpty()){
+            area = Double.parseDouble(txtPedidoArea.getText());
+            dim = selectedForma.calcDimensions(area);
+            txtPedidoDim1.setText(Double.toString(dim));
+            if(!"Circulo".equals(selectedForma.getNome())){
+                txtPedidoDim2.setText(Double.toString(dim));
+            }
+        } else {
+            txtPedidoDim1.setText("");
+            txtPedidoDim2.setText("");
+        }
+    }//GEN-LAST:event_txtPedidoAreaKeyReleased
+
+    private void btnPedidoAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoAdicionarActionPerformed
+        Tapete tapetePedido = new Tapete(materialPedido, selectedForma);
+        tapetePedido.getForma().setArea(tapetePedido.getForma().calcArea(Double.parseDouble(txtPedidoDim1.getText()), Double.parseDouble(txtPedidoDim2.getText())));
+        tapetePedido.setPreco(tapetePedido.calcPreco());
+        
+        Tapete[] aux = null;
+        if (tapetes != null){
+            aux = tapetes.clone();
+            tapetes = new Tapete[tapetes.length + 1];
+        } else {
+            tapetes = new Tapete[1];
+        }        
+        if (aux != null ){
+            System.arraycopy(aux, 0, tapetes, 0, aux.length);
+        }
+        tapetes[tapetes.length - 1] = new Tapete (tapetePedido.getMaterial(), tapetePedido.getForma());
+        
+        pedidoPedido.setTapetes(tapetes);
+        
+        ArrayList<Tapete> list = new ArrayList(Arrays.asList(pedidoPedido.getTapetes()));
+        pedidoModel.atualizarTabela(list);
+        tblPedidoLista.setModel(pedidoModel);
+        
+        double total = 0;
+        for(Tapete tapete : tapetes){
+            total += tapete.getPreco();
+        }
+        
+        lblPedidoValor.setText("R$ " + total);
+        
+        cboxPedidoMaterial.setSelectedIndex(0);
+        cboxPedidoForma.setSelectedIndex(0);
+        txtPedidoDim1.setText("");
+        txtPedidoDim2.setText("");
+        txtPedidoArea.setText("");
+    }//GEN-LAST:event_btnPedidoAdicionarActionPerformed
+
+    private void cboxPedidoCPFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxPedidoCPFActionPerformed
+        String cpf = (String)cboxPedidoCPF.getSelectedItem();
+        int indexCliente = -1, indexPedido = -1;
+        if(!cpf.isEmpty()){
+            for (int i = 0; i < clientes.length; i++){
+                if(clientes[i].getCpf().equals(cpf)){
+                    indexCliente = i;
+                }
+            }
+            if (indexCliente >= 0){
+                clientePedido = new Cliente(clientes[indexCliente].getNome(), clientes[indexCliente].getSobrenome(), clientes[indexCliente].getCpf());
+            } else {
+                clientePedido = null;
+            }
+        } else {
+            clientePedido = null;
+        }
+        if (clientePedido != null){
+            if(pedidos != null) {
+                for (int i = 0; i < pedidos.length; i++){
+                    if(pedidos[i].getCliente().getCpf().equals(clientePedido.getCpf())){
+                        indexPedido = i;
+                    }
+                }
+            }
+        }
+        if (indexPedido >= 0){
+            pedidoPedido = pedidos[indexPedido];
+            ArrayList<Tapete> list = new ArrayList(Arrays.asList(pedidoPedido.getTapetes()));
+            pedidoModel.atualizarTabela(list);
+            tblPedidoLista.setModel(pedidoModel);
+        } else {
+            pedidoPedido = new Pedido(clientePedido);
+            ArrayList<Tapete> list = new ArrayList();
+            pedidoModel.atualizarTabela(list);
+            tblPedidoLista.setModel(pedidoModel);
+        }
+    }//GEN-LAST:event_cboxPedidoCPFActionPerformed
+
+    private void cboxPedidoMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxPedidoMaterialActionPerformed
+        String material = (String)cboxPedidoMaterial.getSelectedItem();
+        switch (material){
+            case "Comum" :
+                materialPedido = new Material(comum.getPrecoPorArea(), comum.getTipoMaterial());
+                break;
+            case "Luxo":
+                materialPedido = new Material(luxo.getPrecoPorArea(), luxo.getTipoMaterial());
+                break;
+            case "Premium" :
+                materialPedido = new Material(premium.getPrecoPorArea(), premium.getTipoMaterial());
+                break;
+            default :
+                materialPedido = null;
+        }
+    }//GEN-LAST:event_cboxPedidoMaterialActionPerformed
+
+    private void tblPedidoListaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPedidoListaMouseClicked
+        selectedRow = tblPedidoLista.getSelectedRow();
+        cboxPedidoMaterial.setSelectedItem(tapetes[selectedRow].getMaterial().getTipoMaterial());
+        cboxPedidoForma.setSelectedItem(tapetes[selectedRow].getForma().getNome());
+        txtPedidoDim1.setText(Double.toString(tapetes[selectedRow].getForma().calcDimensions(tapetes[selectedRow].getForma().getArea())));
+        txtPedidoDim2.setText(Double.toString(tapetes[selectedRow].getForma().calcDimensions(tapetes[selectedRow].getForma().getArea())));
+        txtPedidoArea.setText(Double.toString(tapetes[selectedRow].getForma().getArea()));
+    }//GEN-LAST:event_tblPedidoListaMouseClicked
+
+    private void btnPedidoEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoEditarActionPerformed
+        tapetes[selectedRow] = new Tapete(materialPedido, selectedForma);
+        tapetes[selectedRow].getForma().setArea(tapetes[selectedRow].getForma().calcArea(Double.parseDouble(txtPedidoDim1.getText()), Double.parseDouble(txtPedidoDim2.getText())));
+        tapetes[selectedRow].setPreco(tapetes[selectedRow].calcPreco());
+        
+        ArrayList<Cliente> list = new ArrayList(Arrays.asList(clientes));
+        clienteModel.atualizarTabela(list);
+        tblClienteLista.setModel(clienteModel);
+        
+        txtClienteNome.setText("");
+        txtClienteSobrenome.setText("");
+        txtClienteCPF.setText("");
+        selectedRow = -1;
+    }//GEN-LAST:event_btnPedidoEditarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

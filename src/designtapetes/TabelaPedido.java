@@ -5,13 +5,13 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 /**
  *
- * @author francielle.ti
+ * @author eweber
  */
-public class TabelaCliente extends AbstractTableModel{
+public class TabelaPedido extends AbstractTableModel{
 
-    private final String[] colunas = new String[]{"CPF", "Nome", "Sobrenome"};
+    private final String[] colunas = new String[]{"Forma", "Material", "Tamanho", "Preço"};
 
-    private List<Cliente> lista = new ArrayList();
+    private List<Tapete> lista = new ArrayList();
     
     @Override
     public int getRowCount() {
@@ -35,28 +35,29 @@ public class TabelaCliente extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Cliente customer = lista.get(rowIndex);
+        Tapete carpet = lista.get(rowIndex);
         switch (columnIndex) {
-            case 0: return customer.getCpf();
-            case 1: return customer.getNome();
-            case 2: return customer.getSobrenome();
+            case 0: return carpet.getForma().getNome();
+            case 1: return carpet.getMaterial().getTipoMaterial();
+            case 2: return carpet.getForma().getArea();
+            case 3: return carpet.calcPreco();
             default : return null;
         }
     }
 
-    public void adicionaContato(Cliente customer) {
-        this.lista.add(customer);
+    public void adicionaTapete(Tapete carpet) {
+        this.lista.add(carpet);
         this.fireTableRowsInserted(lista.size()-1,lista.size()-1);
     }
     
-    public boolean removeContato(Cliente customer) {
-        int linha = this.lista.indexOf(customer);
-        boolean result = this.lista.remove(customer);
+    public boolean removeTapete(Tapete carpet) {
+        int linha = this.lista.indexOf(carpet);
+        boolean result = this.lista.remove(carpet);
         this.fireTableRowsDeleted(linha,linha);
         return result;
     }
 
-    public void atualizarTabela(List<Cliente> lista){
+    public void atualizarTabela(List<Tapete> lista){
         this.lista = new ArrayList();
         this.lista.addAll(lista);
         this.fireTableDataChanged();
@@ -70,7 +71,7 @@ public class TabelaCliente extends AbstractTableModel{
         this.fireTableRowsDeleted(0,indice);
     }
 
-    public Cliente getContato(int linha){
+    public Tapete getTapete(int linha){
         return lista.get(linha);
     }    
 }

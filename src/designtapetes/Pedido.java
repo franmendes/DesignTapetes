@@ -5,29 +5,25 @@
  */
 package designtapetes;
 
+import java.util.Arrays;
+
 /**
  *
  * @author francielle.ti, eweber
  */
 public class Pedido {
-    private String data;
     private Tapete[] tapetes;
     private Cliente cliente;
     private double total;
+    
+    public Pedido(Cliente cliente){
+        this.cliente = cliente;
+    }
 
-    public Pedido(String data, Tapete[] tapetes, Cliente cliente, int total) {
-        this.data = data;
+    public Pedido(Tapete[] tapetes, Cliente cliente, int total) {
         this.tapetes = tapetes;
         this.cliente = cliente;
         this.total = total;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
     }
 
     public Tapete[] getTapetes() {
@@ -53,11 +49,25 @@ public class Pedido {
     public void setTotal(double total) {
         this.total = total;
     }
+
+    public void removeTapete(int row){
+        if(row == -1){
+            return;
+        }
+        for(int i = row; i < (this.tapetes.length - 1); i++){
+            this.tapetes[i].setMaterial(this.tapetes[i+1].getMaterial());
+            this.tapetes[i].setForma(this.tapetes[i+1].getForma());
+            this.tapetes[i].setPreco(this.tapetes[i+1].getPreco());
+        }
+        
+        Tapete[] aux = Arrays.copyOf(this.tapetes, this.tapetes.length-1);
+        this.tapetes = aux.clone();
+    }
     
-    public void addTapete(Tapete tapete){
-        Tapete[] aux = this.tapetes;
-        this.tapetes = new Tapete[(this.tapetes.length) + 1];
-        System.arraycopy(aux, 0, this.tapetes, 0, aux.length);
-        this.tapetes[aux.length] = tapete;
-    }    
+    public void editTapete(int row, Tapete tapete){
+        int i = row - 1;
+        tapetes[i].setMaterial(tapete.getMaterial());
+        tapetes[i].setForma(tapete.getForma());
+        tapetes[i].setPreco(tapete.getPreco());
+    }
 }
