@@ -20,7 +20,8 @@ public class FCirculo extends Forma{
         this.raio = raio;
     }
     
-    public double caclArea(double raio){
+    @Override
+    public double calcArea(double raio, double dim2){
         return Math.PI * Math.pow(raio, 2);
     }
 

@@ -28,7 +28,8 @@ public class FTriangulo extends Forma {
         this.base = base;
     }
     
-    public double calcArea(double altura, double base) {
+    @Override
+    public double calcArea(double base, double altura) {
         return (altura * base) / 3;
     }
 

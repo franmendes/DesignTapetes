@@ -230,7 +230,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnClienteCadastrar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cadastrar"/>
+                <Property name="text" type="java.lang.String" value="Salvar"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClienteCadastrarActionPerformed"/>
@@ -418,6 +418,9 @@
                   <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;&lt;Selecione o Cliente&gt;&quot; })" type="code"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboxPedidoCPFActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -433,30 +436,42 @@
                   <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;&lt;Selecione a Forma&gt;&quot;, &quot;Circulo&quot;, &quot;Triangulo&quot;, &quot;Retangulo&quot; })" type="code"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboxPedidoFormaActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
             </Component>
             <Component class="javax.swing.JLabel" name="lblPedidoDim1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Dimens&#xe3;o 1: "/>
+                <Property name="text" type="java.lang.String" value="Dimens&#xe3;o 1 (m) : "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtPedidoDim1">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPedidoDim1KeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblPedidoDim2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Dimens&#xe3;o 2: "/>
+                <Property name="text" type="java.lang.String" value="Dimens&#xe3;o 2 (m) : "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtPedidoDim2">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPedidoDim2KeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblPedidoArea">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Area: "/>
+                <Property name="text" type="java.lang.String" value="Area (m&#xb2;) :  "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txtPedidoArea">
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPedidoAreaKeyReleased"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="lblPedidoMaterial">
               <Properties>
@@ -469,6 +484,9 @@
                   <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;&lt;Selecione o Material&gt;&quot;, &quot;Comum&quot;, &quot;Luxo&quot;, &quot;Premium&quot; })" type="code"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboxPedidoMaterialActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -477,11 +495,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Adicionar Item"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPedidoAdicionarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnPedidoEditar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Editar Item"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPedidoEditarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnPedidoExcluir">
               <Properties>
@@ -507,6 +531,9 @@
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblPedidoListaMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

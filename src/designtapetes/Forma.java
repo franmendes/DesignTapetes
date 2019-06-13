@@ -28,5 +28,7 @@ public abstract class Forma {
         this.area = area;
     }
     
+    public abstract double calcArea(double dim1, double dim2);
+    
     public abstract double calcDimensions(double area);
 }

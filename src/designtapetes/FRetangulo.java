@@ -28,7 +28,8 @@ public class FRetangulo extends Forma {
         this.largura = largura;
     }
     
-    public double calcArea(double altura, double largura){
+    @Override
+    public double calcArea(double largura, double altura){
         return altura * largura;
     }
     

@@ -4,15 +4,15 @@ package designtapetes;
  *
  * @author francielle.ti, eweber
  */
-public class Tapete {
+public final class Tapete {
     private Material material;
     private Forma forma;
     private double preco;
 
-    public Tapete(Material material, Forma forma, double preco) {
+    public Tapete(Material material, Forma forma) {
         this.material = material;
         this.forma = forma;
-        this.preco = preco;
+        this.preco = this.calcPreco();
     }
 
     public Material getMaterial() {
@@ -37,6 +37,10 @@ public class Tapete {
 
     public void setPreco(double preco) {
         this.preco = preco;
+    }
+    
+    public void setPreco(){
+        this.preco = calcPreco();
     }
     
     public double calcPreco(){
